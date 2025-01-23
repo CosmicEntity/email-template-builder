@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFieldStore, useFocusStore } from "../store";
 import Axios from "../../axios.config.js";
+import DownloadLoader from "./DownloadLoader";
 
 const EmailTemplateEditor = () => {
+  const [loading, setLoading] = useState(false);
   const { title, content, footer, imageUrl, logoUrl } = useFieldStore(
     (state) => state.fields
   );
@@ -45,6 +47,7 @@ const EmailTemplateEditor = () => {
   };
 
   const handleDownload = () => {
+    setLoading(true);
     const data = {
       title,
       content,
@@ -61,6 +64,7 @@ const EmailTemplateEditor = () => {
         a.download = "OutputHtml.html";
         a.click();
         window.URL.revokeObjectURL(url);
+        setLoading(false);
       })
       .catch((error) => {
         console.error(error);
@@ -153,7 +157,7 @@ const EmailTemplateEditor = () => {
         className="w-full px-2 py-1 my-2 border-2 border-[teal] text-[teal] rounded outline-[teal] hover:bg-[teal] hover:text-white"
         onClick={handleDownload}
       >
-        Download Template
+        {loading ? <DownloadLoader /> : "Download Template"}
       </button>
     </div>
   );

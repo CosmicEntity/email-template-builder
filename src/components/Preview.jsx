@@ -23,6 +23,7 @@ const Preview = () => {
       setFooter(parsedData.footer);
       setImageUrl(parsedData.imageUrl);
       setLogoUrl(parsedData.logoUrl);
+      setLoading(false);
     } else {
       Axios.get("/base-template").then((res) => {
         const { title, content, footer, imageUrl, logoUrl } = res.data;
@@ -35,6 +36,7 @@ const Preview = () => {
       });
     }
   }, []);
+
   return (
     <div className="w-[80%] md:w-[75%] ">
       {loading ? (
@@ -46,15 +48,15 @@ const Preview = () => {
           </div>
           <h1
             className=" p-2 w-full text-xl "
-            style={{
-              border: titleFocus ? "3px solid orangered" : "none",
-            }}
+            style={{ border: titleFocus ? "3px solid orangered" : "none" }}
           >
             {title}
           </h1>
           <p
             className=" p-2 w-full "
-            style={{ border: contentFocus ? "3px solid orangered" : "none" }}
+            style={{
+              border: contentFocus ? "3px solid orangered" : "none",
+            }}
           >
             {content}
           </p>
