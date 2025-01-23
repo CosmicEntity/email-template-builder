@@ -1,4 +1,3 @@
-import { Placeholder } from "placeholder";
 import React from "react";
 
 const Loader = () => {
